@@ -30,16 +30,6 @@ public extension Color {
     static var pink: ValueType {Self.initalize(rgba: .init(r255: 219, g255: 174, b255: 190))}
     static var red: ValueType {Self.initalize(rgba: .init(r255: 208, g255: 90, b255: 89))}
     
-    func interpolate<C: Color>(to toColor: C, amount: CGFloat) -> CGColor {
-        let fromRGB = self.rgba()
-        let toRGB = toColor.rgba()
-        let red = fromRGB.r.interpolateTo(toRGB.r, amount: amount)
-        let green = fromRGB.g.interpolateTo(toRGB.g, amount: amount)
-        let blue = fromRGB.b.interpolateTo(toRGB.b, amount: amount)
-        let alpha = fromRGB.a.interpolateTo(toRGB.a, amount: amount)
-        return CGColor(red: red, green: green, blue: blue, alpha: alpha)
-    }
-    
     func brightness(increaseBy percentage: CGFloat) -> ValueType {
         let hsb = hsba()
         return Self.initalize(rgba: HSBA(h: hsb.h, s: hsb.s, b: hsb.b + percentage, a: hsb.a).rgba())

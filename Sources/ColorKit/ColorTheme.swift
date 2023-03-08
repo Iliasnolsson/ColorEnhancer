@@ -16,9 +16,20 @@ public enum ColorTheme: Int {
         return interfaceStyle == .dark ? .dark : .light
     }
     
+    private static func getWindow() -> UIWindow? {
+        if #available(iOS 15.0, *) {
+            return UIApplication.shared
+                .connectedScenes.lazy
+                .compactMap { $0.activationState == .foregroundActive ? ($0 as? UIWindowScene) : nil }
+                .last(where: { $0.keyWindow != nil })?
+                .keyWindow
+        }
+        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    }
+    
     static var current: ColorTheme? {
-        if let current = UIUserInterfaceStyle.current {
-            return .from(current)
+        if let window = getWindow() {
+            return from(window.traitCollection.userInterfaceStyle)
         }
         return nil
     }

@@ -1,5 +1,4 @@
 import XCTest
-@testable import ColorEnhancerKit
 
 final class ColorEnhancerKitTests: XCTestCase {
     func testExample() throws {
